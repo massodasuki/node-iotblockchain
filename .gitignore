@@ -1,0 +1,8 @@
+*.tar.gz
+node_modules
+.DS_Store
+log
+data
+localscript.js
+.vscode
+* .src/.vs
