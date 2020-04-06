@@ -14,5 +14,5 @@ var BiodataSchema = mongoose.Schema({
         default: Date.now
     }
 });
- 
-mongoose.model('Biodata', BiodataSchema);
+
+module.exports = mongoose.model('Biodata', BiodataSchema);

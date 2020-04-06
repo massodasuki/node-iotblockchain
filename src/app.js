@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var jobs = require('./scheduler/cron')
 
 //Route to files
 // var indexRouter = require('./routes/index');
@@ -32,7 +33,10 @@ var isProduction = process.env.NODE_ENV === 'production';
 // app.use('/', transactionsRouter);
 // app.use('/', transactionsRouter);
 
+// Crons
+jobs.startCron();
 
+// Monggose
 if(isProduction){
   mongoose.connect(process.env.MONGODB_URI);
 } else {

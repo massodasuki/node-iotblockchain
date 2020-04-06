@@ -1,40 +1,51 @@
 
 const axios = require('axios')
 
-var mongoose = require('mongoose');
-var Biodata = mongoose.model('Biodata');
+var Biodata = require('../models/Biodata')
 
 const host = '';
 
 // USE BY CRONS
 function getOneBiodata ()
 {   
-    var bio;
-   //  get the first  data from monggo
-    Biodata.findOne({}, function(error, data) {
-    bio = data;
-    console.log(data); //Display the comments returned by MongoDB, if any were found. Executes after the query is complete.
+    return new Promise(function(resolve, reject){
+        //  get the first  data from monggo
+        Biodata.findOne({}, function(error, data) {
+            if (data){
+                resolve({status:200, data:data})
+            }
+            else if (error)
+            {
+                console.log(error)
+                reject({status:404})
+            }
+        });
+    })
    
-    });
-
-    return bio;
 }
 
 
-function sendOneBiodata(host, payload)
+async function sendOneBiodata(host, payload)
 { 
-    // send data to BigchainDB
-    var payload;
+    return new Promise(async function(resolve,reject){
 
-    const instance = axios.create({
-        headers: {
-            'Content-Type': 'application/json',
+        var host = 'http://192.168.15.17:5000/bigchain'
+        console.log(payload.age);
+        // send data to BigchainDB
+        
+        const instance = axios.create({
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+
+        response = await instance.post(host, payload);
+        // return response;
+
+        if (response) { 
+            resolve({status:200, data:payload._id})
         }
     })
-
-    response = await instance.post(host, payload);
-    return response;
-  
 }
 
 function deleteOneBiodata (id)
@@ -55,11 +66,28 @@ function deleteOneBiodata (id)
 }
 
 function transferBiodata (host)
-{
-    var payload = getOneBiodata();
-    sendOneBiodata(host, payload);
-    deleteOneBiodata(payload.id);
 
+{
+    // var payload = getOneBiodata();
+    
+    getOneBiodata().then(function(status){
+        if (status && status.data)
+        {
+            console.log(status.data._id)
+            return sendOneBiodata(host, status.data);
+        } else {
+            reject ({status:404})
+        }
+        
+    }).catch (function(err){
+        console.log(err);
+    }).then(function(status){
+        deleteOneBiodata(status.data._id);
+    }).catch(function(err){
+        console.log(err);
+    }).then(function(status){
+        //COMPLETE
+    })
 }
 
 // module.exports.getOneBiodata = getOneBiodata;
