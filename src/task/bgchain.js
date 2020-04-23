@@ -11,8 +11,6 @@ const API_PATH =  'http://'+ config.blockchain_ip + config.blockchain_port +'/ap
 function saveToBigchain (payload){
     return new Promise(function(resolve, reject){
         
-        try 
-        {
             // Create a new keypair.
             const alice = new driver.Ed25519Keypair()
 
@@ -59,18 +57,12 @@ function saveToBigchain (payload){
                 
                     resolve({status:200, data:payload._id})
                 }
-                else{
+                else {
                     console.log("API_PATH not available"); // true 
                     reject({status:400, data:"Error"})
                 }
 
             });
-
-            
-        }
-        catch {
-            reject({status:400, data:"Error"})
-        }
 
     })
 

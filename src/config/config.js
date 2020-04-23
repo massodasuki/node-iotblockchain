@@ -4,7 +4,7 @@ var blockchain_ip = 'localhost';
 var blockchain_port = ':9984';
 const API_PATH = 'https://test.bigchaindb.com/api/v1/'
 
-var cpu_min = 1;
+var cpu_min = 50;
 
 
 module.exports = {
