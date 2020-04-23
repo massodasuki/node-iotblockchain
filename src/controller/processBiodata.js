@@ -1,9 +1,10 @@
 
-const axios = require('axios')
+const axios = require('axios');
 
-var Biodata = require('../models/Biodata')
+var Biodata = require('../models/Biodata');
 
-const host = '';
+var config = require('../config/config');
+const host = 'http://'+ config.host_ip + config.host_port + '/bigchain';
 
 // USE BY CRONS
 function getOneBiodata ()
@@ -25,12 +26,12 @@ function getOneBiodata ()
 }
 
 
-async function sendOneBiodata(host, payload)
+async function sendOneBiodata(payload)
 { 
     return new Promise(async function(resolve,reject){
 
-        var host = 'http://192.168.15.17:5000/bigchain'
-        console.log(payload.age);
+        // var host = 'http://192.168.15.17:5000/bigchain'
+        console.log('Patient age :' + payload.age);
         // send data to BigchainDB
         
         const instance = axios.create({
@@ -44,6 +45,9 @@ async function sendOneBiodata(host, payload)
 
         if (response) { 
             resolve({status:200, data:payload._id})
+        }
+        else {
+            reject({status:400, data:payload._id})
         }
     })
 }
@@ -74,7 +78,7 @@ function transferBiodata (host)
         if (status && status.data)
         {
             console.log(status.data._id)
-            return sendOneBiodata(host, status.data);
+            return sendOneBiodata(status.data);
         } else {
             reject ({status:404})
         }

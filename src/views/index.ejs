@@ -29,7 +29,24 @@
 
 <script>
     
-async function readSubmit(){
+// async function readSubmit(){
+//   var col =["age", "sex", "bmi", "children", "smoker", "region", "charges"]; // excell
+//   var formid =["age", "sex", "bmi", "children", "smoker", "region", "charge"]; //form
+//   var myJSON = <%-JSON.stringify(dataset)%>;
+//   var myArray = JSON.parse(myJSON);
+//   var n ;
+//   for (var i = 0; i < myArray.length; i++) {
+//     for(var j = 0; j < 7; j++){
+//       n = col[j];
+//       document.getElementById(formid[j]).value = myArray[i][n];
+//       //alert(myArray[i][n]);
+//           }
+//           await new Promise(done => setTimeout(done, 1000)); //Sleep 5 seconds
+//           document.getElementById("form_id").submit();
+//       }
+// }
+
+function readSubmit(){
   var col =["age", "sex", "bmi", "children", "smoker", "region", "charges"]; // excell
   var formid =["age", "sex", "bmi", "children", "smoker", "region", "charge"]; //form
   var myJSON = <%-JSON.stringify(dataset)%>;
@@ -41,10 +58,12 @@ async function readSubmit(){
       document.getElementById(formid[j]).value = myArray[i][n];
       //alert(myArray[i][n]);
           }
-          await new Promise(done => setTimeout(done, 5000)); //Sleep 5 seconds
+        //   await new Promise(done => setTimeout(done, 1000)); //Sleep 5 seconds
           document.getElementById("form_id").submit();
       }
 }
+
+
 </script>
 
 <body id="home">

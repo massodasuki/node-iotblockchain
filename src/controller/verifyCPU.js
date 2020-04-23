@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
-const minCpu = 50;
+var config = require('../config/config');
+const minCpu = config.cpu_min;
 
 function verifyCPU (host) {
     return new  Promise(function (resolve, reject) {

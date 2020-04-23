@@ -1,13 +1,15 @@
 const cron = require('node-cron');
+var config = require('../config/config')
 // const express = require('express');
 
-var host = 'http://192.168.15.17:5000';
+var host = 'http://' + config.host_ip + config.host_port;
 
 var verify = require('../controller/verifyCPU');
 var bioTransation = require('../controller/processBiodata');
 
 function startCron () {
-  cron.schedule("* * * * *", () => {
+  cron.schedule("*/5 * * * * *", () => {
+  // cron.schedule("* 20 * * * *", () => {
     console.log('Cron Started');
     var endpoint_cpu = '/cpu';
     var endpoint_post_data = '/biodata';
@@ -15,6 +17,8 @@ function startCron () {
     verify.verifyCPU(host + endpoint_cpu).then(function(status){
 
       if (status.data == true) {
+
+        console.log('CPU Ready');
         var url = host + endpoint_post_data;
         bioTransation.transferBiodata(host + endpoint_post_data);
       }
@@ -29,7 +33,7 @@ function startCron () {
     }).then(function(status){
 
         // console.log(status);
-        console.log('Transfer completed');
+        console.log('Cron Complete');
         return Promise.resolve({status:200})
 
     });
@@ -38,5 +42,3 @@ function startCron () {
 }
 
 module.exports.startCron = startCron;
-//app = express();
-//app.listen(8000);
