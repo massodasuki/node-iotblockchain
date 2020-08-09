@@ -34,7 +34,10 @@ var isProduction = process.env.NODE_ENV === 'production';
 // app.use('/', transactionsRouter);
 
 // Crons
-jobs.startCron();
+// jobs.startCron();
+
+//Benchmarking Not check CPU
+jobs.startCronWithoutCheckCPU();
 
 // Monggose
 if(isProduction){

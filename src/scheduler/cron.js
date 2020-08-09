@@ -41,4 +41,20 @@ function startCron () {
   });
 }
 
+
+function startCronWithoutCheckCPU () {
+  cron.schedule("*/5 * * * * *", () => {
+  // cron.schedule("* 20 * * * *", () => {
+    console.log('Cron Started');
+    var endpoint_post_data = '/biodata';
+    bioTransation.transferBiodata(host + endpoint_post_data);
+    console.log('Cron Complete');
+    return Promise.resolve({status:200})
+
+    // });
+
+  });
+}
+
+module.exports.startCronWithoutCheckCPU = startCronWithoutCheckCPU;
 module.exports.startCron = startCron;
