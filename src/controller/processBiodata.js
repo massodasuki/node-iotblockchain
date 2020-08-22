@@ -26,7 +26,7 @@ function getOneBiodata ()
 }
 
 //send biodata to bigchaindb
-async function sendOneBiodata(payload)
+function sendOneBiodata(payload)
 { 
     return new Promise(async function(resolve,reject){
 
@@ -40,15 +40,26 @@ async function sendOneBiodata(payload)
             }
         })
 
-        response = await instance.post(host, payload);
-        // return response;
+        instance.post(host, {payload})
+            .then(function(res) {
+                console.log(`statusCode: ${res.statusCode}`)
+                console.log(res)
+                resolve({status:200, data:payload._id})
+            })
+            .catch(function (error) {
+                console.error(error)
+                reject({status:400, data:payload._id})
+            })
 
-        if (response) { 
-            resolve({status:200, data:payload._id})
-        }
-        else {
-            reject({status:400, data:payload._id})
-        }
+        // response = await instance.post(host, payload);
+        // // return response;
+
+        // if (response) { 
+        //     resolve({status:200, data:payload._id})
+        // }
+        // else {
+        //     reject({status:400, data:payload._id})
+        // }
     })
 }
 

@@ -12,11 +12,12 @@ function saveToBigchain (payload){
     return new Promise(function(resolve, reject){
 
             // Create a new keypair.
+            console.log("Payload send to bigchain: ",payload.age);
             const alice = new driver.Ed25519Keypair()
-
             // Construct a transaction payload
             const tx = driver.Transaction.makeCreateTransaction(
                 // Define the asset to store
+                
                 { age: payload.age,
                     sex: payload.sex,
                     bmi: payload.bmi,
