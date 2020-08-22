@@ -86,7 +86,7 @@ function transferBiodata (host)
                 // console.log("transferBiodata :",status.data._id)
                 sendOneBiodata(status.data)
                 .then(function(status){
-                    console.log("transferBiodata :",status.data._id)
+                    console.log("transferBiodata :",status)
                     deleteOneBiodata(status.data._id)
                     .then(function(status){
                            console.log(status)
