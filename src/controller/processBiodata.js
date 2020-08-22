@@ -2,6 +2,7 @@
 const axios = require('axios');
 
 var Biodata = require('../models/Biodata');
+var bigchain = require('../task/bgchain');
 
 var config = require('../config/config');
 const host = 'http://'+ config.host_ip + config.host_port + '/bigchain';
@@ -34,32 +35,21 @@ function sendOneBiodata(payload)
         console.log('Patient age :' + payload.age);
         // send data to BigchainDBS
 
-        const instance = axios.create({
-            headers: {
-                'Content-Type': 'application/json',
+        // const instance = axios.create({
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     }
+        // })
+        
+        bigchain.saveToBigchain(payload)
+            .then(function (status){
+            if (status.ok == 200){
+                resolve({ok:200, data_id:status.data_id})
+            }
+            else {
+                res.status(400)
             }
         })
-
-        instance.post(host, {payload})
-            .then(function(res) {
-                console.log(`statusCode: ${res.statusCode}`)
-                console.log(res)
-                resolve({status:200, data:payload._id})
-            })
-            .catch(function (error) {
-                console.error(error)
-                reject({status:400, data:payload._id})
-            })
-
-        // response = await instance.post(host, payload);
-        // // return response;
-
-        // if (response) { 
-        //     resolve({status:200, data:payload._id})
-        // }
-        // else {
-        //     reject({status:400, data:payload._id})
-        // }
     })
 }
 
