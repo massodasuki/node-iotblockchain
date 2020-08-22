@@ -83,9 +83,10 @@ function transferBiodata (host)
             .then(function(status){
             if (status.ok == 200 && status.data)
             {
-                console.log(status.data._id)
+                // console.log("transferBiodata :",status.data._id)
                 sendOneBiodata(status.data)
                 .then(function(status){
+                    console.log("transferBiodata :",status.data._id)
                     deleteOneBiodata(status.data._id)
                     .then(function(status){
                            console.log(status)
