@@ -54,47 +54,57 @@ function sendOneBiodata(payload)
 }
 
 function deleteOneBiodata (id)
-{
-    // delete data from monggo
-    Biodata.findByIdAndRemove(id, function(err,data)
-    {
-        if(!err){
-            if (data === 1) {
-                console.log("Fail");
+{   
+    return new Promise(async function(resolve,reject){
+        // delete data from monggo 
+        Biodata.findByIdAndRemove(id, function(err,data)
+        {
+            if(!err){
+                if (data === 1) {
+                    console.log("Deletion Fail");
+                    resolve({ok:200, data_id:id})
+                }
+                else {
+                    console.log(data + " data deleted");
+                    reject({ok:400, data_id:id})
+                }
             }
-            else {
-                console.log(data + " deleted");
-            }
-        }
+        });
     });
   
 }
 
 function transferBiodata (host)
-{
-    // var payload = getOneBiodata();
-    
-    getOneBiodata().then(function(status){
-        if (status.ok == 200 && status.data)
-        {
-            console.log(status.data_id)
-            sendOneBiodata(status.data)
-            .then(function(status){
-                deleteOneBiodata(status.data._id);
-            }).catch(function(err){
-                console.log(err);
-            })
-
-        } else {
-            reject ({status:404})
-        }
+{   
+    return new Promise(async function(resolve,reject){
+        // var payload = getOneBiodata();
         
-    }).catch (function(err){
-        console.log(err);
-    });
-    // .then(function(status){
-    //     //COMPLETE
-    // })
+        getOneBiodata().then(function(status){
+            if (status.ok == 200 && status.data)
+            {
+                console.log(status.data_id)
+                sendOneBiodata(status.data)
+                .then(function(status){
+                    deleteOneBiodata(status.data._id)
+                    .then(function(status){
+                           console.log(status)
+                        }).catch (function(err){
+                            console.log(err);
+                        });
+
+                }).catch(function(err){
+                    console.log(err);
+                })
+
+            } else {
+                reject ({status:404})
+            }
+            
+        }).catch (function(err){
+            console.log(err);
+        });
+        
+    })
 }
 
 // module.exports.getOneBiodata = getOneBiodata;
