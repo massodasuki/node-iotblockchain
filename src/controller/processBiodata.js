@@ -75,9 +75,9 @@ function transferBiodata (host)
     // var payload = getOneBiodata();
     
     getOneBiodata().then(function(status){
-        if (status && status.data)
+        if (status.ok == 200 && status.data)
         {
-            console.log(status.data._id)
+            console.log(status.data_id)
             sendOneBiodata(status.data)
             .then(function(status){
                 deleteOneBiodata(status.data._id);
