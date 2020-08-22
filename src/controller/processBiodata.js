@@ -25,7 +25,7 @@ function getOneBiodata ()
    
 }
 
-
+//send biodata to bigchaindb
 async function sendOneBiodata(payload)
 { 
     return new Promise(async function(resolve,reject){

@@ -6,6 +6,10 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var jobs = require('./scheduler/cron')
 
+// var utils = require('./utils');
+// serverIpIs = utils.getServerIP();
+// console.log("Server IP = ", utils.getServerIP());
+
 //Route to files
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
@@ -14,6 +18,7 @@ var jobs = require('./scheduler/cron')
 // var transactionsRouter = require('./routes/transactions');
 
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -1,4 +1,9 @@
-var host_ip = '192.168.30.97';
+var utils = require('../utils');
+
+serverIp = utils.getServerIP();
+// console.log("Server IP = ", utils.getServerIP());
+
+var host_ip = serverIp;
 var host_port = ':5000';
 var blockchain_ip = 'localhost';
 var blockchain_port = ':9984';
