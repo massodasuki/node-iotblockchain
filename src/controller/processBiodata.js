@@ -14,12 +14,12 @@ function getOneBiodata ()
         //  get the first  data from monggo
         Biodata.findOne({}, function(error, data) {
             if (data){
-                resolve({status:200, data:data})
+                resolve({ok:200, data:data})
             }
             else if (error)
             {
                 console.log(error)
-                reject({status:404})
+                reject({err:404})
             }
         });
     })
@@ -79,10 +79,11 @@ function transferBiodata (host)
     return new Promise(async function(resolve,reject){
         // var payload = getOneBiodata();
         
-        getOneBiodata().then(function(status){
+        getOneBiodata()
+            .then(function(status){
             if (status.ok == 200 && status.data)
             {
-                console.log(status.data_id)
+                console.log(status.data._id)
                 sendOneBiodata(status.data)
                 .then(function(status){
                     deleteOneBiodata(status.data._id)
