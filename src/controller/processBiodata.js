@@ -32,8 +32,8 @@ async function sendOneBiodata(payload)
 
         // var host = 'http://192.168.15.17:5000/bigchain'
         console.log('Patient age :' + payload.age);
-        // send data to BigchainDB
-        
+        // send data to BigchainDBS
+
         const instance = axios.create({
             headers: {
                 'Content-Type': 'application/json',
@@ -70,7 +70,6 @@ function deleteOneBiodata (id)
 }
 
 function transferBiodata (host)
-
 {
     // var payload = getOneBiodata();
     
@@ -78,20 +77,23 @@ function transferBiodata (host)
         if (status && status.data)
         {
             console.log(status.data._id)
-            return sendOneBiodata(status.data);
+            sendOneBiodata(status.data)
+            .then(function(status){
+                deleteOneBiodata(status.data._id);
+            }).catch(function(err){
+                console.log(err);
+            })
+
         } else {
             reject ({status:404})
         }
         
     }).catch (function(err){
         console.log(err);
-    }).then(function(status){
-        deleteOneBiodata(status.data._id);
-    }).catch(function(err){
-        console.log(err);
-    }).then(function(status){
-        //COMPLETE
-    })
+    });
+    // .then(function(status){
+    //     //COMPLETE
+    // })
 }
 
 // module.exports.getOneBiodata = getOneBiodata;

@@ -6,11 +6,11 @@ const driver = require('bigchaindb-driver')
 
 const urlExists = require('url-exists');
 var config = require('../config/config');
-const API_PATH =  'http://'+ config.blockchain_ip + config.blockchain_port +'/api/v1/' 
+const API_PATH =  'http://'+ config.blockchain_ip + config.blockchain_port +'/api/v1/'
 
 function saveToBigchain (payload){
     return new Promise(function(resolve, reject){
-        
+
             // Create a new keypair.
             const alice = new driver.Ed25519Keypair()
 
@@ -45,7 +45,6 @@ function saveToBigchain (payload){
 
                 // Send the transaction off to BigchainDB
                 const conn = new driver.Connection(API_PATH)
-                
                 conn.postTransactionCommit(txSigned)
                     .then(retrievedTx => console.log('Transaction', retrievedTx.id, 'successfully posted.'))
 
@@ -55,7 +54,7 @@ function saveToBigchain (payload){
                 //     console.log(err);
                 // })
                 
-                    resolve({status:200, data:payload._id})
+                    resolve({ok:200, data_id:payload._id})
                 }
                 else {
                     console.log("API_PATH not available"); // true 
