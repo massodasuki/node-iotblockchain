@@ -45,7 +45,7 @@ function startCron () {
 function startCronWithoutCheckCPU () {
   cron.schedule("*/5 * * * * *", () => {
   // cron.schedule("* 20 * * * *", () => {
-    console.log('Cron Started');
+    console.log('Cron Started Without Check CPU');
     var endpoint_post_data = '/biodata';
     bioTransation.transferBiodata(host + endpoint_post_data);
     console.log('Cron Complete');
