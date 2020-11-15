@@ -42,7 +42,7 @@ var isProduction = process.env.NODE_ENV === 'production';
 // jobs.startCron();
 
 //Benchmarking Not check CPU
-jobs.startCronWithoutCheckCPU();
+//jobs.startCronWithoutCheckCPU();
 
 // Monggose
 if(isProduction){
