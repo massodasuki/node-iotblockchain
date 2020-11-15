@@ -38,12 +38,12 @@ router.post('/bigchainDirect/', function(req, res) {
             if (status.ok == 200){
                 console.log("bigchainDirect = ", status);
                 
-                return res.redirect('/');
+                return res.redirect('/direct');
             }
             else {
 
                 console.log("bigchainDirect = ", 400);
-                return res.redirect('/');
+                return res.redirect('/direct');
             }
             
         }).catch(function (err){

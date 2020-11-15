@@ -38,14 +38,18 @@ function saveToBigchain (payload){
             
             // Sign the transaction with private keys
             const txSigned = driver.Transaction.signTransaction(tx, alice.privateKey)
+            console("Sign the transaction with private keys :", txSigned)
 
             //Check url
             urlExists(API_PATH, function(err, exists) {
                 
                 if (exists){
+                    console.log("API_PATH available :", API_PATH); // true 
 
                 // Send the transaction off to BigchainDB
-                const conn = new driver.Connection(API_PATH)
+                const conn = new driver.Connection(API_PATH);
+                    console.log("Connection created :", conn); // true 
+                    
                 conn.postTransactionCommit(txSigned)
                     .then(retrievedTx => console.log('Transaction', retrievedTx.id, 'successfully posted.'))
 
@@ -54,8 +58,8 @@ function saveToBigchain (payload){
                 // }).catch (function(err){
                 //     console.log(err);
                 // })
-                
-                    resolve({ok:200, data_id:payload._id})
+                    var theId = (payload._id) ? payload._id : payload.age;
+                    resolve({ok:200, data_id:theId})
                 }
                 else {
                     console.log("API_PATH not available"); // true 
