@@ -28,7 +28,7 @@ router.post('/bigchain/', function(req, res) {
     })
 });
 
-router.post('/bigchainDirect/', function(req, res) {
+router.post('/direct/', function(req, res) {
     return new Promise(function(resolve, reject){
 
         var payload = req.body;
