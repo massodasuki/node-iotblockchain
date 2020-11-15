@@ -11,6 +11,7 @@ router.get('/direct/', function(req, res, next) {
     data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]); //if you have multiple sheet
 
     res.render('direct', {
+        title:'Client',
         dataset : JSON.stringify(data)
     });
 
