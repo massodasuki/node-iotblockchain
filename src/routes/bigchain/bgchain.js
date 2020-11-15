@@ -25,7 +25,30 @@ router.post('/bigchain/', function(req, res) {
     }).catch(function (err){
         res.status(400)
     })
+    })
+});
 
+router.post('/bigchainDirect/', function(req, res) {
+    return new Promise(function(resolve, reject){
+
+        var payload = req.body;
+        // var txn = bigchain.saveToBigchain(payload);
+        bigchain.saveToBigchain(payload).then(function (status){
+            console.log('routes/bigchain/bgchain.js', status);
+            if (status.ok == 200){
+                console.log("bigchainDirect = ", status);
+                
+                return res.redirect('/');
+            }
+            else {
+
+                console.log("bigchainDirect = ", 400);
+                return res.redirect('/');
+            }
+            
+        }).catch(function (err){
+            res.status(400)
+        })
     })
 });
 
