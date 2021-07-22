@@ -21,6 +21,6 @@
     "node-fetch": "^2.6.0",
     "node-os-utils": "^1.2.2",
     "url-exists": "^1.0.3",
-    "xlsx": "^0.15.6"
+    "xlsx": "^0.17.0"
   }
 }
